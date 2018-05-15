@@ -56,6 +56,10 @@ device.on('message', function(topic, payload) {
       //
       const s = 100
       let Pc = [0,0]
+      let dirX = 0
+      let dirY = 0
+      let timeX = 0
+      let timeY = 0
       orb.readLocator((err, data) => {
         if(err){
           //
@@ -65,10 +69,10 @@ device.on('message', function(topic, payload) {
           //
           Pc[0] = data.xpos
           Pc[1] = data.ypos
-          var dirX = (Pc[0] > 0) ? 180 : 0
-          var dirY = (Pc[1] > 0) ? 90 : 0
-          var timeX = Pc[0] / s
-          var timeY = Pc[1] / s
+          dirX = (Pc[0] > 0) ? 180 : 0
+          dirY = (Pc[1] > 0) ? 90 : 0
+          timeX = Pc[0] / s
+          timeY = Pc[1] / s
           //
           console.log('Data calculated', dirX, dirY, timeX, timeY)
         }

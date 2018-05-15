@@ -24,8 +24,10 @@ device.on('connect', function() {
     device.subscribe("things/bund/commands")
   })
 
-  device.on('error', () => {
-    console.log('Error')
+  orb.connect(() => {
+    orb.color('red').delay(1000).then(() => {
+      return orb.color('green')
+    })
   })
 
 //
@@ -41,17 +43,11 @@ device.on('message', function(topic, payload) {
       color = msg.color
     }
     //
-    orb.connect(() => {
-      orb.color(color)
-      console.log('Sphero connected')
-      
-      if(command.type == 'roll'){
-        orb.roll(command.speed, command.direction).delay(command.duration).then(() => {
-          return orb.roll(0,0)
-        })
-      }
-    })
-
+    if(command.type == 'roll'){
+      orb.roll(command.speed, command.direction).delay(command.duration).then(() => {
+        return orb.roll(0,0)
+      })
+    }
   })
 
 // sphero execute

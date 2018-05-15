@@ -71,8 +71,8 @@ device.on('message', function(topic, payload) {
           Pc[1] = data.ypos
           dirX = (Pc[0] > 0) ? 180 : 0
           dirY = (Pc[1] > 0) ? 90 : 0
-          timeX = Pc[0] / s
-          timeY = Pc[1] / s
+          timeX = (Pc[0] / s)*1000
+          timeY = (Pc[1] / s)*1000
           //
           console.log('Data calculated', dirX, dirY, timeX, timeY)
         }

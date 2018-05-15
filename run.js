@@ -47,6 +47,41 @@ device.on('message', function(topic, payload) {
       orb.roll(command.speed, command.direction).delay(command.duration).then(() => {
         return orb.roll(0,0)
       })
+    } else if (command.type == 'random'){
+      const degrees = (Math.random()*360)
+      orb.roll(command.speed, degrees).delay(command.duration).then(() => {
+        return orb.roll(0,0)
+      })
+    } else if (command.type == 'home') {
+      //
+      const s = 100
+      let Pc = [0,0]
+      orb.readLocator((err, data) => {
+        if(err){
+          //
+          console.log('Oops, an error occured')
+        } else {
+          console.log('Data', data)
+          //
+          Pc[0] = data.xpos
+          Pc[1] = data.ypos
+          var dirX = (Pc[0] > 0) ? 180 : 0
+          var dirY = (Pc[1] > 0) ? 90 : 0
+          var timeX = Pc[0] / s
+          var timeY = Pc[1] / s
+          //
+          console.log('Data calculated', dirX, dirY, timeX, timeY)
+        }
+      })
+      //
+      orb.roll(s, dirX).delay(timeX).then(() => {
+        return orb.roll(0,0).delay(1000)
+      }).then(() => {
+        return orb.roll(s, dirY).delay(timeY).then(() => {
+          return orb.roll(0,0)
+        })
+      })
+      
     }
   })
 

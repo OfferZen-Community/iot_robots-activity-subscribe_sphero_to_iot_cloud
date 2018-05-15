@@ -33,7 +33,7 @@ let command = {}
 let color = ''
 
 device.on('message', function(topic, payload) {
-    console.log('message', topic, payload.toString())
+    console.log('message',payload.toString())
     const msg = JSON.parse(payload.toString())
     if (topic == "things/bund/commands") {
       // do somethig with payload
@@ -43,6 +43,7 @@ device.on('message', function(topic, payload) {
     //
     orb.connect(() => {
       orb.color(color)
+      console.log('Sphero connected')
       
       if(command.type == 'roll'){
         orb.roll(command.speed, command.direction).delay(command.duration).then(() => {
@@ -50,6 +51,7 @@ device.on('message', function(topic, payload) {
         })
       }
     })
+
   })
 
 // sphero execute

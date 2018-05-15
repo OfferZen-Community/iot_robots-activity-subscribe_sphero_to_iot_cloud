@@ -44,7 +44,7 @@ device.on('message', function(topic, payload) {
     }
     //
     if(command.type == 'roll'){
-      orb.roll(command.speed, command.direction).delay(command.duration).then(() => {
+      orb.roll(command.speed, command.direction, command.duration).then(() => {
         return orb.roll(0,0)
       })
     } else if (command.type == 'random'){

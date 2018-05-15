@@ -53,38 +53,7 @@ device.on('message', function(topic, payload) {
         return orb.roll(0,0)
       })
     } else if (command.type == 'home') {
-      //
-      const s = 100
-      let Pc = [0,0]
-      let dirX = 0
-      let dirY = 0
-      let timeX = 0
-      let timeY = 0
-      orb.readLocator((err, data) => {
-        if(err){
-          //
-          console.log('Oops, an error occured')
-        } else {
-          console.log('Data', data)
-          //
-          Pc[0] = data.xpos
-          Pc[1] = data.ypos
-          dirX = (Pc[0] > 0) ? 180 : 0
-          dirY = (Pc[1] > 0) ? 90 : 0
-          timeX = (Pc[0] / s)*1000
-          timeY = (Pc[1] / s)*1000
-          //
-          console.log('Data calculated', dirX, dirY, timeX, timeY)
-        }
-      })
-      //
-      orb.roll(s, dirX).delay(timeX).then(() => {
-        return orb.roll(0,0).delay(1000)
-      }).then(() => {
-        return orb.roll(s, dirY).delay(timeY).then(() => {
-          return orb.roll(0,0)
-        })
-      })
+      // do something with the locator to navigate back to home
       
     }
   })

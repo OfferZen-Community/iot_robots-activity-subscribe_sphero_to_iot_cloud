@@ -12,22 +12,23 @@ var orb = sphero(spheroId)
 var device = aws.device({
   keyPath: './de148d3481-private.pem.key',
   certPath: './de148d3481-certificate.pem.crt',
-  caPath: './VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem',
+  caPath: './ca.pem',
   clientId: 'raspberry_pi-' + spheroId,
   host: 'a2yujzh40clf9c.iot.us-east-2.amazonaws.com'
 })
 
-device
-  .on('connect', function() {
-    console.log('connect');
-    device.subscribe('topic_1');
-    device.publish('topic_2', JSON.stringify({ test_data: 1}));
+device.on('connect', function() {
+    console.log('connect')
+    device.subscribe("things/bund/commands")
   });
 
-device
-  .on('message', function(topic, payload) {
+device.on('message', function(topic, payload) {
     console.log('message', topic, payload.toString());
-  });
+    if (topic == "things/bund/commands") {
+      // do somethig with payload
+      
+    }
+  })
 
 // listen to AWS MQTT
 

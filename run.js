@@ -10,7 +10,7 @@ const spheroId = 'FD:94:C6:CA:0E:C0'
 var orb = sphero(spheroId)
 
 var device = aws.device({
-  keypath: './de148d3481-private.pem.key',
+  keyPath: './de148d3481-private.pem.key',
   certPath: './de148d3481-certificate.pem.crt',
   caPath: './VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem',
   clientId: 'raspberry_pi-' + spheroId,
